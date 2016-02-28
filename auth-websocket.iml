@@ -9,6 +9,7 @@
         <sourceRoots>
           <root url="file://$MODULE_DIR$/src/main/java" />
           <root url="file://$MODULE_DIR$/src/main/resource" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -36,6 +37,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss.spec.javax.json:jboss-json-api_1.0_spec:1.0.0.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss.spec.javax.websocket:jboss-websocket-api_1.1_spec:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.ogm:hibernate-ogm-mongodb:4.2.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.ogm:hibernate-ogm-core:4.2.0.Final" level="project" />
