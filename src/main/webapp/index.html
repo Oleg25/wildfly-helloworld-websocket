@@ -22,7 +22,7 @@ var port = "";
 if (window.location.host.search(".rhcloud.com") > 0) {
   port = ":8000";
 }
-var url = 'ws://' + window.location.host + port + window.location.pathname + 'shout';
+var url = 'ws://' + window.location.host + port + window.location.pathname + 'auth';
 var ws = new WebSocket(url);
 ws.onconnect = function(e) {
   console.log("connected");

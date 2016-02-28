@@ -24,8 +24,16 @@
         <processorPath useClasspath="true" />
         <module name="wildfly-helloworld-websocket" />
       </profile>
+      <profile default="false" name="Annotation profile for auth-websocket" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="auth-websocket" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="auth-websocket" target="1.7" />
       <module name="wildfly-helloworld-websocket" target="1.7" />
     </bytecodeTargetLevel>
   </component>
