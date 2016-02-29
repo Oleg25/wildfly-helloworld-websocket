@@ -1,47 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="springChat">
-	<head>
-	  <meta charset="utf-8" />
-	  <title>Spring WebSocket Chat</title>
-	  
-	  <!-- Loading Bootstrap -->
-	  <link href="lib/flat-ui/dist/css/vendor/bootstrap.min.css" rel="stylesheet">
-	
-	  <!-- Loading Flat UI -->
-	  <link href="lib/flat-ui/dist/css/flat-ui.css" rel="stylesheet">
-	  
-	  <link href="css/chat.css" rel="stylesheet">	  
-	</head>
-	<body>
-		<div class="container">
-	        <div class="login">
-		        <div class="login-screen">
-		          <div class="login-icon">
-		            <h4>Welcome to <small>Spring WebSocket Chat</small></h4>
-		          </div>
-		
-		          <div class="login-form">
-		          	<p><small style="color:#666">Enter a nickname to join. If you want to become admin use the password 'rockandroll'</small></p>
-		          	<form method="post">
-			            <div class="form-group">
-			              <input type="text" class="form-control login-field" placeholder="Enter your name" name="username" />
-			              <label class="login-field-icon fui-user" for="login-name"> Username</label>
-			            </div>
-			
-			            <div class="form-group">
-			              <input type="password" class="form-control login-field" name="password" />
-			              <label class="login-field-icon fui-lock" for="login-pass"> Admin password </label>
-			            </div>
-			
-						<input class="btn btn-primary btn-lg btn-block"  type="submit" value="Log In"/>
-		            </form>
-		          </div>
-		        </div>
-		      </div>
-	    </div>
-	    <!-- /.container -->
-	
+<html>
+<head>
+	<title>Testing websockets</title>
+</head>
+<body>
+<div>
+	<span>Subject:</span>
+	<input id="subject" type="text" />
+	<br />
+	<span>Content:</span>
+	<input id="content" type="text" />
+</div>
+<div>
+	<input type="submit" value="Send message" onclick="send()" />
+</div>
+<div id="messages"></div>
+<script type="text/javascript">
+	var webSocket =
+			new WebSocket('ws://localhost:8080/auth-websocket/ws');
 
-		
-	</body>
+	webSocket.onerror = function(event) {
+		onError(event);
+	};
+
+	webSocket.onopen = function(event) {
+		onOpen(event);
+	};
+
+	webSocket.onmessage = function(event) {
+		onMessage(event);
+	};
+
+	function onMessage(event) {
+		var json = JSON.parse(event.data);
+		document.getElementById('messages').innerHTML
+				= '<br />Received server response!'
+				+ '<br />Subject: ' + json.subject
+				+ '<br />Content: ' + json.content;
+	}
+
+	function onOpen(event) {
+		alert('Connection established');
+	}
+
+	function onError(event) {
+		alert('Error');
+	}
+
+	function send() {
+		var subject = document.getElementById('subject').value;
+		var content = document.getElementById('content').value;
+		var json = {
+			'subject' : subject,
+			'content' : content
+		};
+		webSocket.send(JSON.stringify(json));
+		return false;
+	}
+</script>
+</body>
 </html>

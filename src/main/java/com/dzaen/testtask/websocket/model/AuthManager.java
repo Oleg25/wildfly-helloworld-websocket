@@ -16,7 +16,7 @@ public class AuthManager {
 
     /*
      public void delete(){
-     Query query = em.createQuery("DELETE FROM Property p");
+     Query query = em.createQuery("DELETE FROM Login p");
 
      query.executeUpdate();
      em.flush();

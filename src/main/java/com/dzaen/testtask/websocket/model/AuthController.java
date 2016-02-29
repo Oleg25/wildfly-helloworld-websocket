@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Model
-public class Controller {
+public class AuthController {
 
     @Inject
     AuthManager ejb;
@@ -22,8 +22,24 @@ public class Controller {
 
     List<Login> propertyList;
 
-    private String key;
-    private String value;
+    private String email;
+    private String pass;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 
     @PostConstruct
     public void readDB() {
@@ -31,30 +47,16 @@ public class Controller {
 
     }
 
-    public String getKey() {
-        return key;
-    }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public void save() {
         Login p = new Login();
-        p.setKey(key);
-        p.setValue(value);
-        ejb.save(p);
+         p.setEmail(email);
+         p.setPass(pass);
+         ejb.save(p);
         propertyList.add(p);
-        key="";
-        value="";
+          email="";
+          pass="";
     }
 
 }

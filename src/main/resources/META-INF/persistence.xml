@@ -11,6 +11,8 @@
       <property name="hibernate.ogm.datastore.database" value="logins"/>
       <property name="hibernate.ogm.datastore.host" value="localhost"/>
       <property name="hibernate.ogm.datastore.provider" value="MONGODB"/>
+
+      <property name="hibernate.ogm.datastore.create_database" value="true"></property>
       <!--
             <property name="hibernate.ogm.datastore.username" value="db_user" />
             <property name="hibernate.ogm.datastore.password" value="top_secret!" />
