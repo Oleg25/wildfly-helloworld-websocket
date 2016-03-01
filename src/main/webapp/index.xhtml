@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <style type="text/css">
+        @import url("css/style.css");
+    </style>
+</h:head>
+<h:body>
+
+    <h:form id="jsfexample">
+
+        <h:outputText value="Нет токенов для отображения!" rendered="#{empty controller.accountList}" />
+        <br/>
+
+        <h:outputText value="Список выданных токенов" rendered="#{not empty controller.accountList}"></h:outputText>
+        <br /> <br />
+        <h:dataTable value="#{controller.accountList}" var="item" styleClass="tablestyle" rendered="#{not empty controller.accountList}">
+            <h:column>
+                <f:facet name="header">API Token</f:facet>
+                <h:outputText value="#{item.key}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{item.value}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+    <br />
+</h:body>
+
+    <head>
+        <title>Dzen test task</title>
+    </head>
+    <body>
+    <div>
+        <span>Email:</span>
+        <input id="email" type="text" />
+        <br />
+        <span>Password:</span>
+        <input id="pass" type="text" />
+    </div>
+    <br />
+    <div>
+        <input type="submit" value="Login" onclick="send()" />
+    </div>
+    <div id="messages"></div>
+    <script type="text/javascript">
+        var webSocket =
+                new WebSocket('ws://localhost:8080/auth-websocket/ws');
+
+        webSocket.onerror = function(event) {
+            onError(event);
+        };
+
+        webSocket.onopen = function(event) {
+            onOpen(event);
+        };
+
+        webSocket.onmessage = function(event) {
+            onMessage(event);
+        };
+
+        function onMessage(event) {
+            var json = JSON.parse(event.data);
+            document.getElementById('messages').innerHTML
+                    = '<br />Type: ' + json.type
+                    + '<br />Sequence ID: ' + json.sequence_id;
+        }
+
+        function onOpen(event) {
+            console.info("open");
+           // alert('Connection established');
+        }
+
+        function onError(event) {
+            console.error('Error');
+        }
+
+        function send() {
+
+
+            var email = document.getElementById('email').value;
+            var pass = document.getElementById('pass').value;
+            var out_msg = {
+                'type':'CUSTOMER_LOGIN',
+                'sequence_id':'a29e4fd0-581d-e06b-c837-4f5f4be7dd18',
+                  'data':{
+                       'email': email,
+                       'password': pass
+                  }
+
+            };
+            webSocket.send(JSON.stringify(out_msg));
+            return false;
+        }
+
+
+        function guid() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                        .toString(16)
+                        .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                    s4() + '-' + s4() + s4() + s4();
+        }
+    </script>
+    </body>
+
+</html>

@@ -3,16 +3,15 @@
   <persistence-unit name="mongo-ogm" transaction-type="JTA">
     <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
     <!-- <exclude-unlisted-classes>false</exclude-unlisted-classes>-->
-    <class>com.dzaen.testtask.websocket.model.Login</class>
+    <class>com.dzaen.testtask.websocket.db.model.Account</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
       <!--  <property name="hibernate.ogm.datastore.provider" value="mongodb" />-->
-      <property name="hibernate.ogm.datastore.database" value="logins"/>
+      <property name="hibernate.ogm.datastore.database" value="accounts"/>
       <property name="hibernate.ogm.datastore.host" value="localhost"/>
       <property name="hibernate.ogm.datastore.provider" value="MONGODB"/>
-
-      <property name="hibernate.ogm.datastore.create_database" value="true"></property>
+      <property name="hibernate.ogm.datastore.create_database" value="true" />
       <!--
             <property name="hibernate.ogm.datastore.username" value="db_user" />
             <property name="hibernate.ogm.datastore.password" value="top_secret!" />
